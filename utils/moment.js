@@ -88,5 +88,30 @@ module.exports = {
       .replace("mm", minute)
       .replace("ss", seconds);
     return countdown;
+  },
+  // 获取时间
+  getAimsDate(date, time = 0, time_type = "day") {
+    const start_date = new Date(date.replace(/\-/g, "/")).getTime();
+    let timeType = 0;
+    switch (time_type) {
+      case "second":
+        timeType = 1000;
+        break;
+      case "minute":
+        timeType = 1000 * 60;
+        break;
+      case "hour":
+        timeType = 1000 * 3600;
+        break;
+      case "day":
+        timeType = 1000 * 3600 * 24;
+        break;
+      default:
+        timeType = 0;
+        break;
+    }
+    const aims_date = start_date + timeType * time;
+    var date = this.format(new Date(aims_date / 1000), "YYYY-MM-DD");
+    return date;
   }
 };
