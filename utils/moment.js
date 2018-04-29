@@ -23,6 +23,17 @@ module.exports = {
       .replace("mm", mm)
       .replace("ss", ss);
   },
+  // 时间戳转时间
+  timestampToTime(timestamp) {
+        const date = new Date(timestamp * 1000),//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-',
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
+        D = date.getDate() + ' ',
+        h = date.getHours() + ':',
+        m = date.getMinutes() + ':',
+        s = date.getSeconds()
+        return Y+M+D+h+m+s;
+    },
   // 计算时间差
   dif(start, end, type) {
     const start_time = this.format(start, "YYYY-MM-DD hh:mm:ss");
@@ -111,7 +122,7 @@ module.exports = {
         break;
     }
     const aims_date = start_date + timeType * time;
-    var date = this.format(new Date(aims_date / 1000), "YYYY-MM-DD");
+    var date = this.timestampToTime(aims_date / 1000);
     return date;
   }
 };
